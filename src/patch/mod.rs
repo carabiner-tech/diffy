@@ -246,10 +246,11 @@ impl<'a, T: ?Sized> Hunk<'a, T> {
         function_context: Option<&'a T>,
         lines: Vec<Line<'a, T>>,
     ) -> Self {
-        let (old_count, new_count) = hunk_lines_count(&lines);
+        // Original diffy lib raised error here
+        // let (old_count, new_count) = hunk_lines_count(&lines);
 
-        assert_eq!(old_range.len, old_count);
-        assert_eq!(new_range.len, new_count);
+        // assert_eq!(old_range.len, old_count);
+        // assert_eq!(new_range.len, new_count);
 
         Self {
             old_range,

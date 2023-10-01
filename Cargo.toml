@@ -13,3 +13,4 @@ edition = "2018"
 
 [dependencies]
 nu-ansi-term = "0.46.0"
+tracing = "0.1.37"

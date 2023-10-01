@@ -1,5 +1,7 @@
 //! Parse a Patch
 
+use tracing::debug;
+
 use super::{Hunk, HunkRange, Line, ESCAPED_CHARS_BYTES, NO_NEWLINE_AT_EOF};
 use crate::{
     patch::Patch,
@@ -223,7 +225,10 @@ fn hunk<'a, T: Text + ?Sized>(parser: &mut Parser<'a, T>) -> Result<Hunk<'a, T>>
     // check counts of lines to see if they match the ranges in the hunk header
     let (len1, len2) = super::hunk_lines_count(&lines);
     if len1 != range1.len || len2 != range2.len {
-        return Err(ParsePatchError::new("Hunk header does not match hunk"));
+        debug!("Hunk header lines did not match hunk, trying to apply anyways");
+        // Original diffy lib raised error here, we explicitly do not want to do that because
+        // LLMs rarely get the hunk header lines correct.
+        // return Err(ParsePatchError::new("Hunk header does not match hunk"));
     }
 
     Ok(Hunk::new(range1, range2, function_context, lines))

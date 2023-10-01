@@ -1,14 +1,8 @@
-# diffy
+# Forked Diffy
 
-[![diffy on crates.io](https://img.shields.io/crates/v/diffy)](https://crates.io/crates/diffy)
-[![Documentation (latest release)](https://docs.rs/diffy/badge.svg)](https://docs.rs/diffy/)
-[![Documentation (master)](https://img.shields.io/badge/docs-master-59f)](https://bmwill.github.io/diffy/diffy/)
-[![License](https://img.shields.io/badge/license-Apache-green.svg)](LICENSE-APACHE)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE-MIT)
+See [diffy](https://github.com/bmwill/diffy) for docs on the version of `diffy` that is on crates.io.
 
-Tools for finding and manipulating differences between files
+This fork loosens some of the sanity checks and assertions validating that hunk headers match hunk content. In most use cases, those checks should probably still be run. However, I've been experimenting with ways for LLMs to edit flat files and have found that in many cases the model can generate accurate hunk content for unified diffs but practically never gets the hunk headers correct. `diffy` will fail parsing the Patch, but still successfully apply the Patch if the hunk header check is removed.
 
-## License
 
-This project is available under the terms of either the [Apache 2.0
-license](LICENSE-APACHE) or the [MIT license](LICENSE-MIT).
+It also adds some `tracing` lines to help with debug in upstream Carabiner tech applications.
